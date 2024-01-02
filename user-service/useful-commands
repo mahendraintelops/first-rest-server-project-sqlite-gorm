@@ -31,7 +31,7 @@ http://localhost:1337/v1/users/1234
 # Get  (retrieve specific User)
 ```
 curl -X GET -H "Content-Type: application/json" \
-http://localhost:1337/v1/users/123
+http://localhost:1337/v1/users/b2b7ef10-e53c-4e52-b72f-ce03139624f9
 ```
 
 
