@@ -23,14 +23,14 @@ func (userService *UserService) CreateUser(user *models.User) (*models.User, err
 	return userService.userDao.CreateUser(user)
 }
 
-func (userService *UserService) GetUser(id int64) (*models.User, error) {
+func (userService *UserService) GetUser(id string) (*models.User, error) {
 	return userService.userDao.GetUser(id)
 }
 
-func (userService *UserService) UpdateUser(id int64, user *models.User) (*models.User, error) {
+func (userService *UserService) UpdateUser(id string, user *models.User) (*models.User, error) {
 	return userService.userDao.UpdateUser(id, user)
 }
 
-func (userService *UserService) DeleteUser(id int64) error {
+func (userService *UserService) DeleteUser(id string) error {
 	return userService.userDao.DeleteUser(id)
 }

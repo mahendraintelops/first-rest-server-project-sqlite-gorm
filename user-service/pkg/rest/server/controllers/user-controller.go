@@ -11,7 +11,6 @@ import (
 	"go.opentelemetry.io/otel/trace"
 	"net/http"
 	"os"
-	"strconv"
 )
 
 type UserController struct {
@@ -49,12 +48,7 @@ func (userController *UserController) CreateUser(context *gin.Context) {
 }
 
 func (userController *UserController) FetchUser(context *gin.Context) {
-	id, err := strconv.ParseInt(context.Param("id"), 10, 64)
-	if err != nil {
-		log.Error(err)
-		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
+	id := context.Param("id")
 
 	// trigger user fetching
 	user, err := userController.userService.GetUser(id)
@@ -73,7 +67,7 @@ func (userController *UserController) FetchUser(context *gin.Context) {
 	if len(serviceName) > 0 && len(collectorURL) > 0 {
 		// get the current span by the request context
 		currentSpan := trace.SpanFromContext(context.Request.Context())
-		currentSpan.SetAttributes(attribute.String("user.id", strconv.FormatInt(user.Id, 10)))
+		currentSpan.SetAttributes(attribute.String("user.id", user.ID.String()))
 	}
 
 	context.JSON(http.StatusOK, user)
@@ -88,12 +82,7 @@ func (userController *UserController) UpdateUser(context *gin.Context) {
 		return
 	}
 
-	id, err := strconv.ParseInt(context.Param("id"), 10, 64)
-	if err != nil {
-		log.Error(err)
-		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
+	id := context.Param("id")
 
 	// trigger user update
 	if _, err := userController.userService.UpdateUser(id, &input); err != nil {
@@ -110,12 +99,7 @@ func (userController *UserController) UpdateUser(context *gin.Context) {
 }
 
 func (userController *UserController) DeleteUser(context *gin.Context) {
-	id, err := strconv.ParseInt(context.Param("id"), 10, 64)
-	if err != nil {
-		log.Error(err)
-		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
+	id := context.Param("id")
 
 	// trigger user deletion
 	if err := userController.userService.DeleteUser(id); err != nil {

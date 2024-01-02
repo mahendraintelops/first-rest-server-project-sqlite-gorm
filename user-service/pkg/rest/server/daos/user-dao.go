@@ -6,6 +6,7 @@ import (
 	"github.com/mahendraintelops/first-rest-server-project-sqlite-gorm/user-service/pkg/rest/server/models"
 	log "github.com/sirupsen/logrus"
 	"gorm.io/gorm"
+	"strings"
 )
 
 type UserDao struct {
@@ -36,7 +37,7 @@ func (userDao *UserDao) CreateUser(m *models.User) (*models.User, error) {
 	return m, nil
 }
 
-func (userDao *UserDao) GetUser(id int64) (*models.User, error) {
+func (userDao *UserDao) GetUser(id string) (*models.User, error) {
 	var m *models.User
 	if err := userDao.db.Where("id = ?", id).First(&m).Error; err != nil {
 		log.Debugf("failed to get user: %v", err)
@@ -49,11 +50,11 @@ func (userDao *UserDao) GetUser(id int64) (*models.User, error) {
 	return m, nil
 }
 
-func (userDao *UserDao) UpdateUser(id int64, m *models.User) (*models.User, error) {
-	if id == 0 {
+func (userDao *UserDao) UpdateUser(id string, m *models.User) (*models.User, error) {
+	if len(id) < 1 {
 		return nil, errors.New("invalid user ID")
 	}
-	if id != m.Id {
+	if strings.EqualFold(id, m.ID.String()) {
 		return nil, errors.New("id and payload don't match")
 	}
 
@@ -74,7 +75,7 @@ func (userDao *UserDao) UpdateUser(id int64, m *models.User) (*models.User, erro
 	return m, nil
 }
 
-func (userDao *UserDao) DeleteUser(id int64) error {
+func (userDao *UserDao) DeleteUser(id string) error {
 	var m *models.User
 	if err := userDao.db.Where("id = ?", id).Delete(&m).Error; err != nil {
 		log.Debugf("failed to delete user: %v", err)

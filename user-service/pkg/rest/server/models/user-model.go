@@ -1,10 +1,13 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"github.com/google/uuid"
+	"gorm.io/gorm"
+)
 
 type User struct {
 	gorm.Model
-	Id int64 `gorm:"primaryKey;autoIncrement" json:"ID,omitempty"`
+	ID uuid.UUID `gorm:"type:uuid;primaryKey"`
 
 	Address Address `gorm:"foreignKey:ID" json:"address,omitempty"`
 

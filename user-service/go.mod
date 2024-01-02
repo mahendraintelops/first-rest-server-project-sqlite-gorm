@@ -3,7 +3,6 @@ module github.com/mahendraintelops/first-rest-server-project-sqlite-gorm/user-se
 go 1.21
 
 require (
-
 	github.com/gin-gonic/gin v1.9.1
 	github.com/prometheus/client_golang v1.18.0
 	github.com/sinhashubham95/go-actuator v1.4.0
@@ -22,7 +21,6 @@ require (
 )
 
 require (
-
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bytedance/sonic v1.10.2 // indirect
 	github.com/cenkalti/backoff/v4 v4.2.1 // indirect
@@ -38,6 +36,7 @@ require (
 	github.com/go-playground/validator/v10 v10.16.0 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
+	github.com/google/uuid v1.5.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.1 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
